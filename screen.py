@@ -21,13 +21,13 @@ def screen(filenname = 'record'):
 		return 
 	
 	# 内容
-	content = codecs.open('./result_txt/content.txt', 'w', 'utf-8')
+	content = codecs.open('./resulttxt/content.txt', 'w', 'utf-8')
 	# 时间
-	time = codecs.open('./result_txt/time.txt', 'w', 'utf-8')
+	time = codecs.open('./resulttxt/time.txt', 'w', 'utf-8')
 	# 用户
-	user = codecs.open('./result_txt/user.txt', 'w', 'utf-8')
+	user = codecs.open('./resulttxt/user.txt', 'w', 'utf-8')
 	# 用户群等级
-	lv	= codecs.open('./result_txt/lv.txt', 'w', 'utf-8')
+	lv	= codecs.open('./resulttxt/lv.txt', 'w', 'utf-8')
 	# 获取 日期 时间 昵称 规则 
 	header_rule = re.compile(r'(201[89]-\d{2}-\d{2})\s(\d{2}:\d{2}:\d{2})\s(【.*?】){0,1}(.*?)[\(<]')
 	# 获取内容 规则
@@ -60,7 +60,7 @@ def cloud(img_type='content'):
 	if img_type not in ['content', 'user']:
 		return "Only 'content' and  'user' are available"
 
-	file = codecs.open('./result_txt/'+img_type+'.txt', 'r', 'utf-8')
+	file = codecs.open('./resulttxt/'+img_type+'.txt', 'r', 'utf-8')
 	cut_text="".join(jieba.cut(file.read()))
 
 	#词云背景图片白底 
@@ -72,7 +72,7 @@ def cloud(img_type='content'):
 		stopwords = ['图片', '表情', '系统消息'],
 		max_words = 200).generate_from_text(cut_text)
 	
-	wordcloud.to_file('./result_img/'+img_type+'.jpg')
+	wordcloud.to_file('./resultimg/'+img_type+'.jpg')
 	
 	# 生成预览图片
 	# plt.figure()
@@ -86,7 +86,7 @@ def line_broken(line_type='user'):
 		x_name = '活跃成员前10'
 		y_name = '发言次数'
 		title = '2018/5-2019/1群成员活跃度'
-		img = './user_active.jpg'
+		img = './resultimg/user_active.jpg'
 
 		max_num = 10
 
@@ -94,7 +94,7 @@ def line_broken(line_type='user'):
 		x_name = '群等级'
 		y_name = '发言次数'
 		title = '2018/5-2019/1群内等级活跃度'
-		img = './lv_active.jpg'
+		img = './resultimg/lv_active.jpg'
 
 		max_num = None
 
@@ -102,14 +102,14 @@ def line_broken(line_type='user'):
 		x_name = '24小时制'
 		y_name = '发言次数'
 		title = '2018/5-2019/1每日时段活跃度'
-		img = './time_active.jpg'
+		img = './resultimg/time_active.jpg'
 
 		max_num = 24
 	else:
 		print('Useless'+line_type)
 		return
 
-	file = codecs.open('./result_txt/' + line_type + '.txt', 'r', 'utf-8')
+	file = codecs.open('./resulttxt/' + line_type + '.txt', 'r', 'utf-8')
 	# 用户名集合
 	line_list = [line.rstrip("\n") for line in file]
 	file.close()
